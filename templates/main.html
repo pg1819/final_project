@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+
+        body {
+            background-color: #f1f1f1;
+        }
+
+        input[type='radio'] {
+            transform: scale(2);
+            margin-right: 20px;
+        }
+
+        input[type="file"] {
+            transform: scale(2);
+            margin: auto;
+        }
+
+        button[type="submit"] {
+            transform: scale(1.5);
+            background: #4285F4;
+            font-family: 'Roboto', sans-serif;
+            font-size: 25px;
+            color: white;
+        }
+
+
+        .file-border {
+            position: relative;
+            float: left;
+            margin-left: 300px;
+            margin-top: 100px;
+            width: 500px;
+            height: 100px;
+        {#border: solid crimson;#} text-align: right;
+            top: 100px;
+        }
+
+
+        .method-border {
+            position: relative;
+            float: right;
+            margin-right: 300px;
+            margin-top: 100px;
+            width: 500px;
+            height: 400px;
+        {#border: solid crimson;#}
+        }
+
+        .option1 {
+            position: absolute;
+            top: 50px;
+            left: 40px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 25px;
+        {#border: solid green;#}
+        }
+
+        .option2 {
+            position: absolute;
+            top: 100px;
+            left: 40px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 25px;
+        {#border: solid green;#}
+        }
+
+
+        .option3 {
+            position: absolute;
+            top: 150px;
+            left: 40px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 25px;
+        {#border: solid green;#}
+        }
+
+
+        .option4 {
+            position: absolute;
+            top: 200px;
+            left: 40px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 25px;
+        {#border: solid green;#}
+        }
+
+        .submit-button {
+            position: absolute;
+            top: 350px;
+            left: 50px;
+        {#border: violet;#}
+        }
+
+
+        .progressa {
+            opacity: 0;
+            border-radius: 50px;
+            height: 35px;
+            width: 80%;
+            line-height: 36px;
+            font-size: 14px;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.5);
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            border: 3px solid transparent;
+            margin: auto;
+        }
+
+        .progressab {
+            background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+            background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+            -webkit-background-size: 40px 40px;
+            background-size: 40px 40px;
+            -webkit-transition: width .25s ease, height .25s ease, font-size .25s ease;
+            -moz-transition: width .25s ease, height .25s ease, font-size .25s ease;
+            -ms-transition: width .25s ease, height .25s ease, font-size .25s ease;
+            -o-transition: width .25s ease, height .25s ease, font-size .25s ease;
+            transition: width .25s ease, height .25s ease, font-size .25s ease;
+            width: 0;
+            color: #fff;
+            text-align: center;
+            font-family: 'Open Sans', sans-serif !important;
+            animation: progress-bar-stripes 2s linear infinite reverse;
+        }
+
+        .result {
+            font-family: 'Roboto', sans-serif;
+            font-size: 30px;
+        }
+
+        @keyframes progress-bar-stripes {
+            0% {
+                background-position: 40px 0;
+            }
+            100% {
+                background-position: 0 0;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 45px;
+        }
+
+        p {
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            font-size: 28px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<h1> Detect Machine Translation</h1>
+<p> Upload File, Select Method, Get Results!</p>
+
+<form action="/" method="post" enctype="multipart/form-data">
+    <div class="file-border">
+        <input type="file" name="file" accept="text/*"/>
+    </div>
+    <div class="method-border">
+        <div class="option1">
+            <label>
+                <input type="radio" name="method" value="dependency_tree" checked>Dependency Tree
+            </label>
+        </div>
+        <div class="option2">
+            <label>
+                <input type="radio" name="method" value="word_embedding">Word Embedding
+            </label>
+        </div>
+        <div class="option3">
+            <label>
+                <input type="radio" name="method" value="word_distribution">Word Distribution
+            </label>
+        </div>
+
+        <div class="submit-button">
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+
+</form>
+
+
+<div class="progressa" id="progressbar">
+    <div class="progressab" style="background-color: #4285F4;"></div>
+</div>
+
+
+<p class="result" id="result-id"></p>
+<p class="confidence-level" id="confidence-level-id"></p>
+
+
+<script>
+    var to_download = "{{ download }}"
+    if (to_download.includes("True")) {
+        var progress = document.getElementById("progressbar");
+        progress.style.opacity = "1.0";
+
+        var elm = document.getElementsByClassName('progressab')[0];
+        var url = "stream/{{ file }}/{{ method }}";
+        var eventSource = new EventSource(url);
+
+        eventSource.onmessage = function (e) {
+            if (e.data.includes("0")) {
+                elm.style.width = e.data + "%";
+                elm.innerText = e.data + "%";
+            }
+
+            if (e.data.includes("human-written") || e.data.includes("machine-translated")) {
+                console.log(e.data)
+                document.getElementById("result-id").innerText = "Your result is: " + e.data;
+                document.getElementById("confidence-level-id").innerText = "Confidence level: ";
+                {#document.body.innerHTML +=#}
+                {#    `<a id="download" download="result.png" href="./static/result_to_upload/{{ file }}"> Click me</a>`#}
+                {#download.click()#}
+                {#download.outerHTML = ""#}
+                eventSource.close()
+            }
+        }
+    }
+</script>
+
+
+</body>
+</html>
