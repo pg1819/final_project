@@ -223,12 +223,20 @@
 
             if (e.data.includes("human-written") || e.data.includes("machine-translated")) {
                 console.log(e.data)
-                document.getElementById("result-id").innerText = "Your result is: " + e.data;
-                document.getElementById("confidence-level-id").innerText = "Confidence level: ";
-                {#document.body.innerHTML +=#}
-                {#    `<a id="download" download="result.png" href="./static/result_to_upload/{{ file }}"> Click me</a>`#}
-                {#download.click()#}
-                {#download.outerHTML = ""#}
+
+                const array = e.data.split(",");
+                const result = array[0]
+                const confidence = array[1]
+
+                document.getElementById("result-id").innerText = "Your result is: " + result;
+                document.getElementById("confidence-level-id").innerText = "Confidence level: " + confidence;
+
+                if (!confidence.includes("N/A")) {
+                    document.body.innerHTML +=
+                        `<a id="download" download="result.pdf" href="./static/results/result.pdf"> Click me</a>`
+                    download.click()
+                    download.outerHTML = ""
+                }
                 eventSource.close()
             }
         }
