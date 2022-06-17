@@ -1,11 +1,11 @@
 import fitz
-import os
 import textwrap
 
 from fpdf import FPDF
 
 
 def txt_to_pdf(text, filename):
+    text = text.encode('latin-1', 'replace').decode('latin-1')
     a4_width_mm = 210
     pt_to_mm = 0.35
     fontsize_pt = 11
@@ -44,28 +44,3 @@ def highlight_pdf(document, phrase):
 
 def save_pdf(document, output_pdf):
     document.save(output_pdf, garbage=4, deflate=True, clean=True)
-
-
-if __name__ == "__main__":
-    txt_file = "sample.txt"
-    txt_path = os.path.join("./static/uploaded_file", txt_file)
-
-    pdf_file = os.path.splitext(txt_file)[0] + ".pdf"
-    pdf_path = os.path.join("./static/results", pdf_file)
-
-    highlighted_pdf_file = "highlighted_" + pdf_file
-    highlighted_pdf_path = os.path.join("./static/results", highlighted_pdf_file)
-
-    # with open(txt_path, mode="r", encoding="utf-8-sig") as f:
-    #     text = f.read()
-    #     txt_to_pdf(text, pdf_path)
-
-    p1 = "quiet, had seemed to ignore him; then she gave in all of a sudden suddenly and so abruptly that, that day, leaving her, radiant and"
-    p2 = "--She's playing with it."
-    p3 = "This little girl is admirably gifted. But we have to pity her:"
-    phrases = [p1, p2, p3]
-
-    doc = open_pdf(pdf_path)
-    for ph in phrases:
-        doc = highlight_pdf(doc, ph)
-    save_pdf(doc, highlighted_pdf_path)

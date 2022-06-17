@@ -20,6 +20,9 @@ def detect(file, method):
     pdf_path = os.path.join("./static/results", os.path.splitext(file)[0] + ".pdf")
     highlighted_pdf_path = "./static/results/result.pdf"
 
+    if os.path.isfile(highlighted_pdf_path):
+        os.remove(highlighted_pdf_path)
+
     with open(txt_path, mode="r", encoding="utf-8-sig") as f:
         text = f.read()
         txt_to_pdf(text, pdf_path)
@@ -28,6 +31,7 @@ def detect(file, method):
         yield 'data: {}\n\n'.format(0)
         model = load_model("dependency_tree/dt_classifier.pickle")
         sentences = split_into_sentences(txt_path)
+        total_sentences = []
         highlighted_sentences = []
         predictions = []
         yield 'data: {}\n\n'.format(10)
@@ -37,6 +41,7 @@ def detect(file, method):
                 df = pandas.DataFrame([features])
                 prediction = model.predict(df)[0]
                 predictions.append(prediction)
+                total_sentences.append(s)
                 if prediction == "machine-translated":
                     highlighted_sentences.append(s)
         yield 'data: {}\n\n'.format(80)
@@ -46,15 +51,18 @@ def detect(file, method):
             doc = highlight_pdf(doc, hs)
         save_pdf(doc, highlighted_pdf_path)
         yield 'data: {}\n\n'.format(100)
-        confidence_level = str(len(highlighted_sentences) / len(sentences) * 100) + " %"
+        confidence_level = str(round((len(highlighted_sentences) / len(total_sentences)) * 100)) + " %"
         yield 'data: {}\n\n'.format(result + "," + str(confidence_level))
+        doc.close()
         os.remove(txt_path)
         os.remove(pdf_path)
+        print("Removed..")
 
     elif method == "word_embedding":
         yield 'data: {}\n\n'.format(0)
         model = load_model("word_embedding/we_classifier.pickle")
         paragraphs = split_into_paragraphs(txt_path)
+        total_paragraphs = []
         highlighted_paragraphs = []
         predictions = []
         yield 'data: {}\n\n'.format(10)
@@ -67,6 +75,7 @@ def detect(file, method):
                 df = pandas.DataFrame([means + variances])
                 prediction = model.predict(df)[0]
                 predictions.append(prediction)
+                total_paragraphs.append(p)
                 if prediction == "machine-translated":
                     highlighted_paragraphs.append(p)
         yield 'data: {}\n\n'.format(80)
@@ -75,11 +84,16 @@ def detect(file, method):
         for hp in highlighted_paragraphs:
             doc = highlight_pdf(doc, hp)
         save_pdf(doc, highlighted_pdf_path)
-        confidence_level = str(len(highlighted_paragraphs) / len(paragraphs) * 100) + " %"
+        print(len(highlighted_paragraphs))
+        print(len(total_paragraphs))
+        print(predictions)
+        confidence_level = str(round((len(highlighted_paragraphs) / len(total_paragraphs)) * 100)) + " %"
         yield 'data: {}\n\n'.format(100)
         yield 'data: {}\n\n'.format(result + "," + str(confidence_level))
+        doc.close()
         os.remove(txt_path)
         os.remove(pdf_path)
+        print("Removed..")
 
     elif method == "word_distribution":
         yield 'data: {}\n\n'.format(0)
@@ -99,5 +113,7 @@ def detect(file, method):
         save_pdf(doc, highlighted_pdf_path)
         yield 'data: {}\n\n'.format(100)
         yield 'data: {}\n\n'.format(result + "," + str(confidence_level))
+        doc.close()
         os.remove(txt_path)
         os.remove(pdf_path)
+        print("Removed..")
