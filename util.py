@@ -171,14 +171,15 @@ def recall(path):
         if row == "machine-translated\n":
             machine_translated += 1
         total += 1
-    return machine_translated / total
+    print("Machine Translated", machine_translated)
+    print("Total", total)
+    print("Recall", machine_translated / total)
 
 
 def load_model(path):
     with open(path, "rb") as target:
         model = pickle.load(target)
     return model
-
 
 # batch_save_features(method="back_translate", root="dataset/english_chapters", result="human-written",
 #                     save_path="back_translation/bt_en_fr_features.csv")
@@ -201,5 +202,3 @@ def load_model(path):
 #                     save_path="word_embedding/we_en_fr_features.csv")
 
 # evaluate(filename="./back_translation/bt_en_fr_features.csv", method="back_translation")
-
-

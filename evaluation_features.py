@@ -94,17 +94,17 @@ def batch_evaluate_feature(method, root, save_file):
                 word_embedding(file.path, save_file)
 
 
-batch_evaluate_feature(method="dependency_tree", root="./dataset/mt_german_chapters",
-                       save_file="dt_german_feature_level.txt")
-batch_evaluate_feature(method="dependency_tree", root="./dataset/mt_japanese_chapters",
-                       save_file="dt_japanese_feature_level.txt")
-
-batch_evaluate_feature(method="word_distribution", root="./dataset/mt_german_chapters",
-                       save_file="wd_german_feature_level.txt")
-batch_evaluate_feature(method="word_distribution", root="./dataset/mt_japanese_chapters",
-                       save_file="wd_japanese_feature_level.txt")
-
-batch_evaluate_feature(method="word_embedding", root="./dataset/mt_german_chapters",
-                       save_file="we_german_feature_level.txt")
-batch_evaluate_feature(method="word_embedding", root="./dataset/mt_japanese_chapters",
-                       save_file="we_japanese_feature_level.txt")
+# batch_evaluate_feature(method="dependency_tree", root="./dataset/mt_german_chapters",
+#                        save_file="dt_german_feature_level.txt")
+# batch_evaluate_feature(method="dependency_tree", root="./dataset/mt_japanese_chapters",
+#                        save_file="dt_japanese_feature_level.txt")
+#
+# batch_evaluate_feature(method="word_distribution", root="./dataset/mt_german_chapters",
+#                        save_file="wd_german_feature_level.txt")
+# batch_evaluate_feature(method="word_distribution", root="./dataset/mt_japanese_chapters",
+#                        save_file="wd_japanese_feature_level.txt")
+#
+# batch_evaluate_feature(method="word_embedding", root="./dataset/mt_german_chapters",
+#                        save_file="we_german_feature_level.txt")
+# batch_evaluate_feature(method="word_embedding", root="./dataset/mt_japanese_chapters",
+#                        save_file="we_japanese_feature_level.txt")
