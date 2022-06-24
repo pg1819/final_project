@@ -39,3 +39,34 @@ util.py: Implemented methods for evaluation
 word_distribution.py:  Implemented word_distribution method
 
 word_embedding.py:  Implemented word_embedding method
+
+## How to run web app locally
+### Note: Change python to python3 and pip to pip3 if encountering any error
+
+1. Change to directory
+>cd final_project 
+
+2. Create an environment
+>python -m venv venv
+
+3a. Activate the environment (Windows)
+>venv\Scripts\activate
+
+3b. Activate the environment (Linux/OSX)
+>. venv/bin/activate
+
+4. Install Flask within activated environment
+>pip install flask
+
+5. Install Requirements
+>pip install -r requirements.txt
+
+6a. If on CMD (Windows)
+> set FLASK_APP=app.py
+
+> flask run
+
+6b. If on Bash (Linux/OSX)
+>export FLASK_APP=app
+
+>flask run
